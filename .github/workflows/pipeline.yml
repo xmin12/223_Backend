@@ -1,8 +1,9 @@
-name:  Deploy to production.
+name: Deploy to production
 
 on:
   push:
     branches: [main, dev]
+
 jobs:
   print-hello-world:
     runs-on: ubuntu-latest
@@ -16,3 +17,5 @@ jobs:
     steps:
       - name: Second Test
         run: echo "Second test executed after the first job"
+    env:
+      SECRET_BACKEND: ${{ secrets.SECRET_BACKEND }}
