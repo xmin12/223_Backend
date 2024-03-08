@@ -1,4 +1,4 @@
-name: Deploy to production
+name: Deploy to production and Execute run.sh
 
 on:
   push:
@@ -19,3 +19,12 @@ jobs:
         run: echo "Second test executed after the first job"
     env:
       SECRET_BACKEND: ${{ secrets.SECRET_BACKEND }}
+
+  execute-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Execute run.sh script
+        run: bash run.sh
