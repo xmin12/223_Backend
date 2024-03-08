@@ -1,0 +1,1730 @@
+{
+	"info": {
+		"_postman_id": "9178bdcf-0b0b-4685-a141-5ea3659afc82",
+		"name": "MUA Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33108410"
+	},
+	"item": [
+		{
+			"name": "MyListEntry as Admin",
+			"item": [
+				{
+					"name": "POST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);",
+									"});",
+									"",
+									"pm.test(\"Check response body structure\", function () {",
+									"    pm.response.to.have.jsonBody({",
+									"        \"type\": \"object\",",
+									"        \"properties\": {",
+									"            \"id\": {",
+									"                \"type\": \"string\" ",
+									"            },",
+									"            \"title\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"text\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"creationDate\": {",
+									"                \"type\": \"string\",",
+									"                \"format\": \"date-time\"",
+									"            },",
+									"            \"importance\": {",
+									"                \"type\": \"integer\"",
+									"            },",
+									"            \"user\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                    \"id\": {",
+									"                        \"type\": \"string\" // Assuming user id is a string",
+									"                    }",
+									"                },",
+									"                \"required\": [\"id\"]",
+									"            }",
+									"        },",
+									"        \"required\": [\"id\", \"title\", \"text\", \"creationDate\", \"importance\", \"user\"]",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"Response status code is 201\", function () {",
+									"  pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									"pm.test(\"Id should be a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Id should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Title is a non-empty string and less than 100 characters\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.title).to.be.a('string').and.to.have.lengthOf.at.most(100, \"Title should be less than 100 characters\");",
+									"  pm.expect(responseData.title).to.not.be.empty;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Importance is a non-negative integer\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.importance).to.be.a('number');",
+									"    pm.expect(responseData.importance).to.be.at.least(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfREVMRVRFIn0seyJhdXRob3JpdHkiOiJVU0VSX01PRElGWSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFX0ZPUl9PVEhFUlMifSx7ImF1dGhvcml0eSI6Ik1ZTElTVEVOVFJJRVNfT0ZfQV9TUEVDSUZJQ19VU0VSIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9SRUFEIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9VUERBVEUifSx7ImF1dGhvcml0eSI6IlVTRVJfREVMRVRFIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9SRUFEIn0seyJhdXRob3JpdHkiOiJVU0VSX0RFTEVURSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFIn0seyJhdXRob3JpdHkiOiJERUZBVUxUIn1dLCJzdWIiOiJiYTgwNGNiOS1mYTE0LTQyYTUtYWZhZi1iZTQ4ODc0MmZjNTQiLCJpYXQiOjE3MDkyMDI2MzksImV4cCI6MTcwOTMwMjYzOSwiaXNzIjoidWsyMjMifQ.viu_-188JGF5DOHHb5TEh9-Og_JZvni4cZncTcl6DfM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"hello24\",\r\n    \"text\": \"helloworsdfld\",\r\n    \"importance\": 2,\r\n    \"user\": {\r\n    \"id\": \"ba804cb9-fa14-42a5-afaf-be488742fc54\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/mylistentries",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"mylistentries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Response time is less than 200ms', function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"})",
+									"",
+									"pm.test(\"Successful GET request\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Each element in the array has the required properties\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    responseData.forEach((entry) => {",
+									"        pm.expect(entry).to.have.property('id').that.is.a('string');",
+									"        pm.expect(entry).to.have.property('title').that.is.a('string');",
+									"        pm.expect(entry).to.have.property('text').that.is.a('string');",
+									"        pm.expect(entry).to.have.property('creationDate').that.is.a('string');",
+									"        pm.expect(entry).to.have.property('importance').that.is.a('number');",
+									"        pm.expect(entry).to.have.property('user').that.is.an('object').and.to.have.property('id').that.is.a('string');",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"Response Content-Type header is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Each 'id' in the response array is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('array');",
+									"    responseData.forEach(function(entry) {",
+									"        pm.expect(entry.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"ID should be a non-empty string\");",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Importance is a non-negative integer\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('array');",
+									"    responseData.forEach(function(entry) {",
+									"        pm.expect(entry.importance).to.be.a('number');",
+									"        pm.expect(entry.importance).to.be.at.least(0);",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Each 'user' object has a non-empty 'id' property\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('array');",
+									"    responseData.forEach(function(entry) {",
+									"        pm.expect(entry.user).to.be.an('object');",
+									"        pm.expect(entry.user.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Text is a non-empty string for each element in the response array\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.be.an('array');",
+									"    responseData.forEach(function(entry) {",
+									"        pm.expect(entry.text).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Text should not be empty\");",
+									"    });",
+									"});",
+									"",
+									"",
+									"",
+									"pm.test(\"Importance is a non-negative integer for each element in the response array\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('array');",
+									"    ",
+									"    responseData.forEach(function(entry) {",
+									"        pm.expect(entry.importance).to.be.a('number');",
+									"        pm.expect(entry.importance).to.be.at.least(0);",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Each 'user' object has a non-empty 'id' property\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('array');",
+									"    responseData.forEach(function(entry) {",
+									"        pm.expect(entry.user.id).to.exist.and.to.not.be.empty;",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('array');",
+									"    responseData.forEach(function(entry) {",
+									"        pm.expect(entry).to.have.property('id');",
+									"        pm.expect(entry).to.have.property('title');",
+									"        pm.expect(entry).to.have.property('text');",
+									"        pm.expect(entry).to.have.property('creationDate');",
+									"        pm.expect(entry).to.have.property('importance');",
+									"        pm.expect(entry).to.have.property('user');",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Id is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    responseData.forEach(function(entry) {",
+									"        pm.expect(entry.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Id should be a non-empty string\");",
+									"    });",
+									"});",
+									"",
+									"",
+									"",
+									"pm.test(\"Each title in the response array is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('array');",
+									"    responseData.forEach(function(entry) {",
+									"        pm.expect(entry.title).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title should not be empty\");",
+									"    });",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfREVMRVRFIn0seyJhdXRob3JpdHkiOiJVU0VSX01PRElGWSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFX0ZPUl9PVEhFUlMifSx7ImF1dGhvcml0eSI6Ik1ZTElTVEVOVFJJRVNfT0ZfQV9TUEVDSUZJQ19VU0VSIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9SRUFEIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9VUERBVEUifSx7ImF1dGhvcml0eSI6IlVTRVJfREVMRVRFIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9SRUFEIn0seyJhdXRob3JpdHkiOiJVU0VSX0RFTEVURSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFIn0seyJhdXRob3JpdHkiOiJERUZBVUxUIn1dLCJzdWIiOiJiYTgwNGNiOS1mYTE0LTQyYTUtYWZhZi1iZTQ4ODc0MmZjNTQiLCJpYXQiOjE3MDkyMDI2MzksImV4cCI6MTcwOTMwMjYzOSwiaXNzIjoidWsyMjMifQ.viu_-188JGF5DOHHb5TEh9-Og_JZvni4cZncTcl6DfM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/mylistentries",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"mylistentries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.test(\"Schema is valid\", function () {",
+									"  var schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"      id: { type: \"string\" },",
+									"      title: { type: \"string\" },",
+									"      text: { type: \"string\" },",
+									"      creationDate: { type: \"string\" },",
+									"      importance: { type: \"number\" },",
+									"      user: {",
+									"        type: \"object\",",
+									"        properties: {",
+									"          id: { type: \"string\" }",
+									"        },",
+									"        required: [\"id\"]",
+									"      }",
+									"    },",
+									"    required: [\"id\", \"title\", \"text\", \"creationDate\", \"importance\", \"user\"]",
+									"  };",
+									"",
+									"  var response = pm.response.json();",
+									"  pm.expect(tv4.validate(response, schema)).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Response has the required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData).to.have.property('id');",
+									"    pm.expect(responseData).to.have.property('title');",
+									"    pm.expect(responseData).to.have.property('text');",
+									"    pm.expect(responseData).to.have.property('creationDate');",
+									"    pm.expect(responseData).to.have.property('importance');",
+									"    pm.expect(responseData).to.have.property('user');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Title and text are non-empty strings\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.title).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title should not be empty\");",
+									"  pm.expect(responseData.text).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Text should not be empty\");",
+									"});",
+									"",
+									"pm.test(\"Importance is a non-negative integer\", function () {",
+									"  const responseData = pm.response.json();",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.importance).to.be.a('number').and.to.satisfy((importance) => importance >= 0, \"Importance must be a non-negative integer\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"User ID is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.user.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"User ID should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Id is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Id should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"User object is present and contains expected properties\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.user).to.exist;",
+									"    pm.expect(responseData.user.id).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"User object does not contain any extra properties\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.user).to.be.an('object');",
+									"  pm.expect(Object.keys(responseData.user)).to.have.lengthOf(1, \"User object should only have one property\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"User ID should be unique and not a default value\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.user.id).to.be.a('string');",
+									"    pm.expect(responseData.user.id).to.not.equal(''); // User ID should not be empty",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfREVMRVRFIn0seyJhdXRob3JpdHkiOiJVU0VSX01PRElGWSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFX0ZPUl9PVEhFUlMifSx7ImF1dGhvcml0eSI6Ik1ZTElTVEVOVFJJRVNfT0ZfQV9TUEVDSUZJQ19VU0VSIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9SRUFEIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9VUERBVEUifSx7ImF1dGhvcml0eSI6IlVTRVJfREVMRVRFIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9SRUFEIn0seyJhdXRob3JpdHkiOiJVU0VSX0RFTEVURSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFIn0seyJhdXRob3JpdHkiOiJERUZBVUxUIn1dLCJzdWIiOiJiYTgwNGNiOS1mYTE0LTQyYTUtYWZhZi1iZTQ4ODc0MmZjNTQiLCJpYXQiOjE3MDkyMDI2MzksImV4cCI6MTcwOTMwMjYzOSwiaXNzIjoidWsyMjMifQ.viu_-188JGF5DOHHb5TEh9-Og_JZvni4cZncTcl6DfM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/mylistentries/68981dc4-36bb-4a68-ae84-1176f46fe222",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"mylistentries",
+								"68981dc4-36bb-4a68-ae84-1176f46fe222"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response schema is valid\", function () {\r",
+									"    var schema = {\r",
+									"        type: \"object\",\r",
+									"        properties: {\r",
+									"            id: { type: \"string\" },\r",
+									"            title: { type: \"string\" },\r",
+									"            text: { type: \"string\" },\r",
+									"            creationDate: { type: \"string\" },\r",
+									"            importance: { type: \"number\" },\r",
+									"            user: {\r",
+									"                type: \"object\",\r",
+									"                properties: {\r",
+									"                    id: { type: \"string\" }\r",
+									"                },\r",
+									"                required: [\"id\"]\r",
+									"            }\r",
+									"        },\r",
+									"        required: [\"id\", \"title\", \"text\", \"creationDate\", \"importance\", \"user\"]\r",
+									"    };\r",
+									"    pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id in the response is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Id should be a non-empty string\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Title is a non-empty string\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.title).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Text is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.text).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Text should not be empty\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Importance is a non-negative integer\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.importance).to.be.a('number');\r",
+									"  pm.expect(responseData.importance).to.satisfy((importance) => importance >= 0, \"Importance should be a non-negative integer\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"User object must exist and be an object\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.user).to.exist.and.to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"User ID is a non-empty string\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.user.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"User ID should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response contains the required fields\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData).to.include.all.keys('id', 'title', 'text', 'creationDate', 'importance', 'user');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"User object is present with expected properties\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.user).to.exist;\r",
+									"  pm.expect(responseData.user).to.be.an('object');\r",
+									"  pm.expect(responseData.user.id).to.exist;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"User object contains the expected property - id\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData.user).to.exist;\r",
+									"    pm.expect(responseData.user.id).to.exist;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Id in the response should be a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Id should be a non-empty string\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Id in the response is unique and not a default value\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.exist.and.to.not.equal('', \"Id should be unique and not a default value\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Title should not be a default placeholder value\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.title).to.exist.and.not.equal('Default Title');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Text should not be a placeholder or default value\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.text).to.exist.and.to.not.equal('defaultTextValue');\r",
+									"  pm.expect(responseData.text).to.exist.and.to.not.equal('placeholderText');\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfREVMRVRFIn0seyJhdXRob3JpdHkiOiJVU0VSX01PRElGWSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFX0ZPUl9PVEhFUlMifSx7ImF1dGhvcml0eSI6Ik1ZTElTVEVOVFJJRVNfT0ZfQV9TUEVDSUZJQ19VU0VSIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9SRUFEIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9VUERBVEUifSx7ImF1dGhvcml0eSI6IlVTRVJfREVMRVRFIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9SRUFEIn0seyJhdXRob3JpdHkiOiJVU0VSX0RFTEVURSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFIn0seyJhdXRob3JpdHkiOiJERUZBVUxUIn1dLCJzdWIiOiJiYTgwNGNiOS1mYTE0LTQyYTUtYWZhZi1iZTQ4ODc0MmZjNTQiLCJpYXQiOjE3MDkyMDI2MzksImV4cCI6MTcwOTMwMjYzOSwiaXNzIjoidWsyMjMifQ.viu_-188JGF5DOHHb5TEh9-Og_JZvni4cZncTcl6DfM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"hello12\",\r\n    \"text\": \"helloworld sdfgsdgfs\",\r\n    \"creationDate\": \"2024-02-02\",\r\n    \"importance\": 1,\r\n    \"user\": {\r\n    \"id\": \"ba804cb9-fa14-42a5-afaf-be488742fc54\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/mylistentries/36f3b86e-09d6-4ecd-8f99-0d2f06cb47c7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"mylistentries",
+								"36f3b86e-09d6-4ecd-8f99-0d2f06cb47c7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DEL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify that the response body is null\", function () {\r",
+									"    const responseData = xml2Json(pm.response.text());\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.null;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate uniqueness of entry ID in the response\", function () {\r",
+									"    const responseData = xml2Json(pm.response.text());\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.null;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Ensure response does not contain any sensitive information\", function () {\r",
+									"    const responseData = xml2Json(pm.response.text());\r",
+									"\r",
+									"    pm.expect(responseData).to.be.null;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Ensure that the response body is empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.be.empty;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response headers do not contain sensitive information\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"sensitive-info\")).to.not.exist;\r",
+									"    pm.expect(pm.response.headers.get(\"token\")).to.not.exist;\r",
+									"    pm.expect(pm.response.headers.get(\"password\")).to.not.exist;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfREVMRVRFIn0seyJhdXRob3JpdHkiOiJVU0VSX01PRElGWSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFX0ZPUl9PVEhFUlMifSx7ImF1dGhvcml0eSI6Ik1ZTElTVEVOVFJJRVNfT0ZfQV9TUEVDSUZJQ19VU0VSIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9SRUFEIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9VUERBVEUifSx7ImF1dGhvcml0eSI6IlVTRVJfREVMRVRFIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9SRUFEIn0seyJhdXRob3JpdHkiOiJVU0VSX0RFTEVURSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFIn0seyJhdXRob3JpdHkiOiJERUZBVUxUIn1dLCJzdWIiOiJiYTgwNGNiOS1mYTE0LTQyYTUtYWZhZi1iZTQ4ODc0MmZjNTQiLCJpYXQiOjE3MDkyMDI2MzksImV4cCI6MTcwOTMwMjYzOSwiaXNzIjoidWsyMjMifQ.viu_-188JGF5DOHHb5TEh9-Og_JZvni4cZncTcl6DfM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/mylistentries/9a05a510-bf6e-4c66-9743-fa30e1ca7219",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"mylistentries",
+								"9a05a510-bf6e-4c66-9743-fa30e1ca7219"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all MyListEntries of a specific user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Schema is valid\", function () {\r",
+									"  var schema = {\r",
+									"    type: \"array\",\r",
+									"    items: {\r",
+									"      type: \"object\",\r",
+									"      properties: {\r",
+									"        id: { type: \"string\" },\r",
+									"        title: { type: \"string\" },\r",
+									"        text: { type: \"string\" },\r",
+									"        creationDate: { type: \"string\" },\r",
+									"        importance: { type: \"number\" },\r",
+									"        user: {\r",
+									"          type: \"object\",\r",
+									"          properties: {\r",
+									"            id: { type: \"string\" }\r",
+									"          }\r",
+									"        }\r",
+									"      },\r",
+									"      required: [\"id\", \"title\", \"text\", \"creationDate\", \"importance\", \"user\"]\r",
+									"    }\r",
+									"  };\r",
+									"\r",
+									"  var response = pm.response.json();\r",
+									"  pm.expect(tv4.validate(response, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content type is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Importance is a non-negative integer for each entry\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"    responseData.forEach(function(entry) {\r",
+									"        pm.expect(entry.importance).to.be.a('number');\r",
+									"        pm.expect(entry.importance).to.be.at.least(0, \"Importance should be a non-negative integer\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Each entry has a non-empty title and text\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"    \r",
+									"    responseData.forEach(function(entry) {\r",
+									"        pm.expect(entry.title).to.exist.and.to.have.lengthOf.at.least(1, \"Title should not be empty\");\r",
+									"        pm.expect(entry.text).to.exist.and.to.have.lengthOf.at.least(1, \"Text should not be empty\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"User object is present in each entry and contains the 'id' property\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"    responseData.forEach(entry => {\r",
+									"        pm.expect(entry.user).to.exist;\r",
+									"        pm.expect(entry.user.id).to.exist;\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response array should not be empty\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Each entry's id should be a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"    responseData.forEach(function(entry) {\r",
+									"        pm.expect(entry.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"ID should be a non-empty string\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Each entry's user object should have a non-empty id property\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"    \r",
+									"    responseData.forEach(function(entry) {\r",
+									"        pm.expect(entry.user).to.exist.and.to.be.an('object');\r",
+									"        pm.expect(entry.user.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Id should not be empty\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Each entry has a unique id\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('array');\r",
+									"\r",
+									"  const idSet = new Set();\r",
+									"  responseData.forEach(entry => {\r",
+									"    pm.expect(entry.id).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(idSet.has(entry.id)).to.be.false; // Check that the id is unique\r",
+									"    idSet.add(entry.id);\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Each entry's importance should be a non-negative integer\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"    responseData.forEach(function(entry) {\r",
+									"        pm.expect(entry.importance).to.be.a('number');\r",
+									"        pm.expect(entry.importance).to.be.at.least(0);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Title and text of each entry are non-empty strings\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"\r",
+									"    responseData.forEach(function(entry) {\r",
+									"        pm.expect(entry.title).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title should not be empty\");\r",
+									"        pm.expect(entry.text).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Text should not be empty\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfREVMRVRFIn0seyJhdXRob3JpdHkiOiJVU0VSX01PRElGWSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFX0ZPUl9PVEhFUlMifSx7ImF1dGhvcml0eSI6Ik1ZTElTVEVOVFJJRVNfT0ZfQV9TUEVDSUZJQ19VU0VSIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9SRUFEIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9VUERBVEUifSx7ImF1dGhvcml0eSI6IlVTRVJfREVMRVRFIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9SRUFEIn0seyJhdXRob3JpdHkiOiJVU0VSX0RFTEVURSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFIn0seyJhdXRob3JpdHkiOiJERUZBVUxUIn1dLCJzdWIiOiJiYTgwNGNiOS1mYTE0LTQyYTUtYWZhZi1iZTQ4ODc0MmZjNTQiLCJpYXQiOjE3MDkyMDI2MzksImV4cCI6MTcwOTMwMjYzOSwiaXNzIjoidWsyMjMifQ.viu_-188JGF5DOHHb5TEh9-Og_JZvni4cZncTcl6DfM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/ba804cb9-fa14-42a5-afaf-be488742fc54/allmylistentriessorted",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"ba804cb9-fa14-42a5-afaf-be488742fc54",
+								"allmylistentriessorted"
+							],
+							"query": [
+								{
+									"key": "sortDirection",
+									"value": "asdfsaf",
+									"disabled": true
+								},
+								{
+									"key": "sortDirection",
+									"value": "DESC",
+									"disabled": true
+								},
+								{
+									"key": "sortDirection",
+									"value": "ASC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST list of MyListEntries",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"  pm.expect(pm.response.code).to.equal(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response Content-Type is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Importance is a non-negative integer\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('array');\r",
+									"  responseData.forEach(entry => {\r",
+									"    pm.expect(entry.importance).to.be.a('number');\r",
+									"    pm.expect(entry.importance).to.be.at.least(0);\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Each entry has a non-empty id, title, text, and user id\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"    \r",
+									"    responseData.forEach(function(entry) {\r",
+									"        pm.expect(entry.id).to.exist.and.to.not.be.empty;\r",
+									"        pm.expect(entry.title).to.exist.and.to.not.be.empty;\r",
+									"        pm.expect(entry.text).to.exist.and.to.not.be.empty;\r",
+									"        pm.expect(entry.user.id).to.exist.and.to.not.be.empty;\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"User object contains the required field - id\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"    responseData.forEach(function(entry) {\r",
+									"        pm.expect(entry.user).to.be.an('object');\r",
+									"        pm.expect(entry.user.id).to.exist;\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Title and text should be non-empty strings\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"    responseData.forEach(function(entry) {\r",
+									"        pm.expect(entry.title).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title should not be empty\");\r",
+									"        pm.expect(entry.text).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Text should not be empty\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Id and user id are in a valid format\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"    \r",
+									"    responseData.forEach(entry => {\r",
+									"        pm.expect(entry.id).to.be.a('string').and.to.have.lengthOf.at.least(1);\r",
+									"        pm.expect(entry.user.id).to.be.a('string').and.to.have.lengthOf.at.least(1);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('array');\r",
+									"  responseData.forEach(function(entry) {\r",
+									"    pm.expect(entry).to.have.property('id');\r",
+									"    pm.expect(entry).to.have.property('title');\r",
+									"    pm.expect(entry).to.have.property('text');\r",
+									"    pm.expect(entry).to.have.property('creationDate');\r",
+									"    pm.expect(entry).to.have.property('importance');\r",
+									"    pm.expect(entry).to.have.property('user');\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Each entry's creationDate is before or equal to the current date\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"    responseData.forEach(function(entry) {\r",
+									"        pm.expect(entry.creationDate).to.exist;\r",
+									"        pm.expect(new Date(entry.creationDate).getTime()).to.be.at.most(new Date().getTime());\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"User object is present in each entry and contains the expected fields\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"    responseData.forEach(function(entry) {\r",
+									"        pm.expect(entry.user).to.exist;\r",
+									"        pm.expect(entry.user.id).to.exist;\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Each entry's importance is within a valid range\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"    responseData.forEach(function(entry) {\r",
+									"        pm.expect(entry.importance).to.be.a('number');\r",
+									"        pm.expect(entry.importance).to.be.at.least(0);\r",
+									"        pm.expect(entry.importance).to.be.at.most(10);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfREVMRVRFIn0seyJhdXRob3JpdHkiOiJVU0VSX01PRElGWSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFX0ZPUl9PVEhFUlMifSx7ImF1dGhvcml0eSI6Ik1ZTElTVEVOVFJJRVNfT0ZfQV9TUEVDSUZJQ19VU0VSIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9SRUFEIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9VUERBVEUifSx7ImF1dGhvcml0eSI6IlVTRVJfREVMRVRFIn0seyJhdXRob3JpdHkiOiJNWUxJU1RFTlRSWV9SRUFEIn0seyJhdXRob3JpdHkiOiJVU0VSX0RFTEVURSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFIn0seyJhdXRob3JpdHkiOiJERUZBVUxUIn1dLCJzdWIiOiJiYTgwNGNiOS1mYTE0LTQyYTUtYWZhZi1iZTQ4ODc0MmZjNTQiLCJpYXQiOjE3MDkyMDI2MzksImV4cCI6MTcwOTMwMjYzOSwiaXNzIjoidWsyMjMifQ.viu_-188JGF5DOHHb5TEh9-Og_JZvni4cZncTcl6DfM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\r\n    \"title\": \"test4\",\r\n    \"text\": \"helloworld\",\r\n    \"importance\": 2,\r\n    \"user\": {\r\n    \"id\": \"ba804cb9-fa14-42a5-afaf-be488742fc54\"\r\n    }\r\n},{\r\n    \"title\": \"test5\",\r\n    \"text\": \"helloworld\",\r\n    \"importance\": 5,\r\n    \"user\": {\r\n    \"id\": \"ba804cb9-fa14-42a5-afaf-be488742fc54\"\r\n    }\r\n}]\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/mylistentrieslist",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"mylistentrieslist"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "GET user info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5MjZiZWE1Yi1lMWE5LTQwNjYtYjBlYS1kNzUwMmM5ZTZiNmUiLCJhdXRob3JpdGllcyI6W10sImlhdCI6MTcwODUyODEyNiwiZXhwIjoxNzA4NjI4MTI2LCJpc3MiOiJ1azIyMyJ9.Q_1_PQI0DEIa4O6XxgUbrSPkOaFE0iztAUYJti5-Ha4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user/ba804cb9-fa14-42a5-afaf-be488742fc54",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"ba804cb9-fa14-42a5-afaf-be488742fc54"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W10sInN1YiI6IjkyNmJlYTViLWUxYTktNDA2Ni1iMGVhLWQ3NTAyYzllNmI2ZSIsImlhdCI6MTcwODUyNzA1OCwiZXhwIjoxNzA4NjI3MDU4LCJpc3MiOiJ1azIyMyJ9.NyHKMljQcwUF2cro_OPihy6ABF7iDxZPYpI_jatU6zU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"user@example.com\",\r\n\"password\":\"1234\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W10sInN1YiI6IjkyNmJlYTViLWUxYTktNDA2Ni1iMGVhLWQ3NTAyYzllNmI2ZSIsImlhdCI6MTcwODUyNzA1OCwiZXhwIjoxNzA4NjI3MDU4LCJpc3MiOiJ1azIyMyJ9.NyHKMljQcwUF2cro_OPihy6ABF7iDxZPYpI_jatU6zU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"admin2@example.com\",\r\n\"password\":\"1234\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MyListEntry as User",
+			"item": [
+				{
+					"name": "GET all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is an array of objects\", function () {",
+									"    pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty;",
+									"    pm.response.json().forEach(function(entry) {",
+									"        pm.expect(entry).to.be.an('object');",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"Each entry has required properties\", function () {",
+									"    pm.response.json().forEach(function(entry) {",
+									"        pm.expect(entry).to.have.property('id');",
+									"        pm.expect(entry).to.have.property('title');",
+									"        pm.expect(entry).to.have.property('text');",
+									"        pm.expect(entry).to.have.property('creationDate');",
+									"        pm.expect(entry).to.have.property('importance');",
+									"        pm.expect(entry).to.have.property('user');",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"User id in each entry is a string\", function () {",
+									"    pm.response.json().forEach(function(entry) {",
+									"        pm.expect(entry.user.id).to.be.a('string');",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"pm.test(\"Content type is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Importance is a non-negative integer for each entry\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('array');",
+									"    responseData.forEach(function(entry) {",
+									"        pm.expect(entry.importance).to.be.a('number').and.to.be.at.least(0);",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"User id is not empty for each entry\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('array');",
+									"    responseData.forEach(function(entry) {",
+									"        pm.expect(entry.user.id).to.exist.and.to.not.be.empty;",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"User object has expected properties for each entry\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('array');",
+									"    ",
+									"    responseData.forEach(function(entry) {",
+									"        pm.expect(entry.user).to.be.an('object');",
+									"        pm.expect(entry.user.id).to.exist.and.to.be.a('string');",
+									"    });",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiREVGQVVMVCJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFIn0seyJhdXRob3JpdHkiOiJVU0VSX0RFTEVURSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfUkVBRCJ9XSwic3ViIjoiMGQ4ZmE0NGMtNTRmZC00Y2QwLWFjZTktMmE3ZGE1Nzk5MmRlIiwiaWF0IjoxNzA5MjAzNzgzLCJleHAiOjE3MDkzMDM3ODMsImlzcyI6InVrMjIzIn0.ftZd5ns1HsHvXP_U111qchc5hIK-44FZyhBW34L_hpE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/mylistentries",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"mylistentries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is an object with id, title, text, creationDate, importance, and user properties\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.be.an('object').that.includes.all.keys('id', 'title', 'text', 'creationDate', 'importance', 'user');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Id should be a non-empty string\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Title is a non-empty string\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.title).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title should not be empty\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Importance is a non-negative integer\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData.importance).to.be.a('number');\r",
+									"  pm.expect(responseData.importance).to.be.at.least(0, \"Importance should be a non-negative integer\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"User id is a non-empty string\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData.user.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"User id should not be empty\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiREVGQVVMVCJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFIn0seyJhdXRob3JpdHkiOiJVU0VSX0RFTEVURSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfUkVBRCJ9XSwic3ViIjoiMGQ4ZmE0NGMtNTRmZC00Y2QwLWFjZTktMmE3ZGE1Nzk5MmRlIiwiaWF0IjoxNzA5MjAzNzgzLCJleHAiOjE3MDkzMDM3ODMsImlzcyI6InVrMjIzIn0.ftZd5ns1HsHvXP_U111qchc5hIK-44FZyhBW34L_hpE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/mylistentries/68981dc4-36bb-4a68-ae84-1176f46fe222",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"mylistentries",
+								"68981dc4-36bb-4a68-ae84-1176f46fe222"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has timeStamp and errors properties\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('timeStamp');\r",
+									"    pm.expect(jsonData).to.have.property('errors');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"timeStamp property is a string\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.timeStamp).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"errors property is an object with runtimeException property\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.be.an('object').that.has.property('runtimeException');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"runtimeException property is a string\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors.runtimeException).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors must include runtimeException for 400 status code\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData.errors).to.exist;\r",
+									"  pm.expect(responseData.errors.runtimeException).to.exist;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify errors object contains only the runtimeException property\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData.errors).to.be.an('object');\r",
+									"    pm.expect(Object.keys(responseData.errors)).to.eql(['runtimeException']);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiREVGQVVMVCJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFIn0seyJhdXRob3JpdHkiOiJVU0VSX0RFTEVURSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfUkVBRCJ9XSwic3ViIjoiMGQ4ZmE0NGMtNTRmZC00Y2QwLWFjZTktMmE3ZGE1Nzk5MmRlIiwiaWF0IjoxNzA5MjAzNzgzLCJleHAiOjE3MDkzMDM3ODMsImlzcyI6InVrMjIzIn0.ftZd5ns1HsHvXP_U111qchc5hIK-44FZyhBW34L_hpE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"hello24\",\r\n    \"text\": \"helloworld\",\r\n    \"creationDate\": \"2024-01-01\",\r\n    \"importance\": 3,\r\n    \"user\": {\r\n    \"id\": \"0d8fa44c-54fd-4cd0-ace9-2a7da57992de\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/mylistentries/36f3b86e-09d6-4ecd-8f99-0d2f06cb47c7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"mylistentries",
+								"36f3b86e-09d6-4ecd-8f99-0d2f06cb47c7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DEL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 400\", function () {\r",
+									"  pm.expect(pm.response.code).to.equal(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has the required fields, including timeStamp and errors\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData).to.have.property('timeStamp');\r",
+									"    pm.expect(responseData).to.have.property('errors');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate runtimeException is a non-empty string\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"\r",
+									"  pm.expect(responseData.errors.runtimeException).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has a valid JSON format\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors object contains the expected properties\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData.errors).to.exist;\r",
+									"    pm.expect(responseData.errors).to.be.an('object');\r",
+									"    pm.expect(responseData.errors.runtimeException).to.exist;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiREVGQVVMVCJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFIn0seyJhdXRob3JpdHkiOiJVU0VSX0RFTEVURSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfUkVBRCJ9XSwic3ViIjoiMGQ4ZmE0NGMtNTRmZC00Y2QwLWFjZTktMmE3ZGE1Nzk5MmRlIiwiaWF0IjoxNzA5MjAzNzgzLCJleHAiOjE3MDkzMDM3ODMsImlzcyI6InVrMjIzIn0.ftZd5ns1HsHvXP_U111qchc5hIK-44FZyhBW34L_hpE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/mylistentries/9a05a510-bf6e-4c66-9743-fa30e1ca7219",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"mylistentries",
+								"9a05a510-bf6e-4c66-9743-fa30e1ca7219"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.exist;\r",
+									"    pm.expect(responseData.title).to.exist;\r",
+									"    pm.expect(responseData.text).to.exist;\r",
+									"    pm.expect(responseData.creationDate).to.exist;\r",
+									"    pm.expect(responseData.importance).to.exist;\r",
+									"    pm.expect(responseData.user).to.exist;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Title is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.title).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Importance is a non-negative integer\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData.importance).to.exist;\r",
+									"    pm.expect(responseData.importance).to.be.a('number');\r",
+									"    pm.expect(responseData.importance).to.satisfy((importance) => importance >= 0, \"Importance should be a non-negative integer\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Id in the response is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Id should be a non-empty string\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"User ID is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData.user.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"User ID should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Text should not be empty\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData.text).to.exist.and.to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"User object contains the expected fields\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData.user).to.exist;\r",
+									"    pm.expect(responseData.user.id).to.exist;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Importance is within an acceptable range\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.importance).to.be.a('number');\r",
+									"  pm.expect(responseData.importance).to.be.within(0, 10);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiREVGQVVMVCJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfQ1JFQVRFIn0seyJhdXRob3JpdHkiOiJVU0VSX0RFTEVURSJ9LHsiYXV0aG9yaXR5IjoiTVlMSVNURU5UUllfUkVBRCJ9XSwic3ViIjoiMGQ4ZmE0NGMtNTRmZC00Y2QwLWFjZTktMmE3ZGE1Nzk5MmRlIiwiaWF0IjoxNzA5MjAzNzgzLCJleHAiOjE3MDkzMDM3ODMsImlzcyI6InVrMjIzIn0.ftZd5ns1HsHvXP_U111qchc5hIK-44FZyhBW34L_hpE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"hello24\",\r\n    \"text\": \"helloworld\",\r\n    \"importance\": 3,\r\n    \"user\": {\r\n    \"id\": \"0d8fa44c-54fd-4cd0-ace9-2a7da57992de\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/mylistentries",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"mylistentries"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "/api/v1/mylistentries/"
+		}
+	]
+}
