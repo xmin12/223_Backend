@@ -1,31 +1,40 @@
-name: Deploy to production and Execute run.sh
+name: Backend Pipeline
 
 on:
   push:
-    branches: [main, dev]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  print-hello-world:
+  build:
+    name: Build and Test
     runs-on: ubuntu-latest
-    steps:
-      - name: Print Hello World
-        run: echo "Hello World!"
 
-  second-test:
-    needs: print-hello-world
-    runs-on: ubuntu-latest
     steps:
-      - name: Second Test
-        run: echo "Second test executed after the first job"
-    env:
-      SECRET_BACKEND: ${{ secrets.SECRET_BACKEND }}
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Set up JDK 18
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '18'
 
-  execute-script:
-    needs: second-test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Build with Gradle and test
+      run: chmod +x gradlew && ./gradlew wrapper --gradle-version 8.0 --distribution-type bin && ./gradlew wrapper && ./gradlew build && ./gradlew test
 
-      - name: Execute run.sh script
-        run: bash run.sh
+    - name: run the run.sh file
+      run: bash ./run.sh
+
+    - name: Execute remote SSH commands
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: 22
+        script: |
+          echo "Hello World"
