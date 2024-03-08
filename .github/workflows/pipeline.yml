@@ -11,9 +11,6 @@ jobs:
       - name: Print Hello World
         run: echo "Hello World!"
 
-      - name: Execute run.sh script
-        run: echo $MY_SECRET-BACKEND
-        
   second-test:
     needs: print-hello-world
     runs-on: ubuntu-latest
@@ -24,6 +21,7 @@ jobs:
       SECRET_BACKEND: ${{ secrets.SECRET_BACKEND }}
 
   execute-script:
+    needs: second-test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
